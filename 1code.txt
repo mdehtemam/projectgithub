@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My-Weather-App</title>
+    <style>
+        *{
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: lightgrey;
+            height: 100%;
+            width: 100%;
+            margin: auto;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        header{
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            height: 12vh;
+            background-color: black;
+        }
+        ul{
+            font-family: "Chivo Mono", monospace;
+            display: flex;
+            gap: 72px;
+            margin: auto;
+            margin-left: 10vw;
+        }
+        ul li{
+            list-style: none;
+        }
+        ul li a{
+            font-size: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: white;
+            padding: 10px;
+            transition: 0.5s ease;
+        }
+        ul:hover li a{
+            color: #30edf4;
+        }
+        ul:hover li a:not(:hover){
+            color: white;
+            opacity: 0.3;
+            filter: blur(1px);
+        }
+        .logo{
+            position: relative;
+            height: 8vh;
+            width: 5vw;
+            top: 15px;
+            margin-left: 20px;
+        }
+        h1{
+            font-family: algerian;
+            font-size: 50px;
+            margin-left: 2vw;
+            margin-top: 2.5vh;
+            color: yellow;
+        }
+        .container {
+            background: #fff;
+            position: absolute;
+            left: 10%;
+            top: 50px;
+            width: 50%;
+            height: 50px;
+            border: 2px solid black;
+            border-radius: 40px;
+        }
+        form{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+        #search-city{
+            width: 100%;
+            height: 100%;
+            padding: 10px 35px 10px 15px;
+            border: none;
+            border-radius: 100px;
+            outline: none;
+        }
+        form img{
+            margin: auto;
+            margin-left: 4%;
+            width: 30px;
+            height: 60%;
+            object-fit: cover;
+        }
+        hr{
+            margin-top: 5px;
+        }
+        button{
+            background-color: rgb(173, 209, 144);
+            margin-top: 2.05%;
+            margin-left: 1%;
+            position: relative;
+            height: 25px;
+            width: auto;
+            font-size: 20px;
+        }
+        div{
+            position: relative;
+        }
+        .box{
+            background-color: white;
+            position: relative;
+            overflow-y: scroll;
+            width: 60vw;
+            height: 335vh;
+            padding: 10px;
+            margin-top: 10px;
+            margin-left: 4vw;
+            border: 2px solid black;
+            box-shadow: 4px 4px 4px black;
+        }
+        .box:hover{
+            transform: width;
+        }
+        .box::-webkit-scrollbar{
+            display: none;
+        }
+        #city-list{
+			display: grid;
+			grid-gap: 25px;
+			grid-template-columns: 1fr;
+            margin-top: 10vh; 
+            margin-left: 4vw;
+		}
+        .card{
+            position: relative;
+            padding: 15px;
+            margin-left: 0vw;
+            border: 5px solid black;
+            margin-top: 5vh;
+            cursor: pointer;
+            background-color: white;
+            height: 30vh;
+            width: 50vw;
+            border-radius: 50px 0 50px 0;
+            box-shadow: 4px 4px 30px black;
+        }
+        .card:hover{
+            transition: all 5s ease;
+            transform: scale(1.05);
+        }
+        .temp{
+            margin-top: 0px;
+            margin-left: 5vw;
+            margin-bottom: 0;
+            font-size: 150px;
+        }
+        h2{
+            margin-top: 0;
+            font-size: 50px;
+            margin-left: 5vw;
+            margin-bottom: 0;
+        }
+        .weatherlogo{
+            height: 250px;
+            width: 300px;
+            position: absolute;
+            top: 2vh;
+            left: 50%;
+            margin-bottom: 0;
+        }
+        .moredetails{
+            font-size: 20px;
+            position: absolute;
+            margin-left: 40vw;
+            margin-top: 0%;
+        }
+        .table3{
+            padding: 15px;
+            background-color: white;
+            float: right;
+            top: 0%;
+            right: 1%;
+            position: absolute;
+            width: 28vw;
+            height: 200vh;
+        }
+        .t31{
+            text-align: center;
+            height: 60px;
+            font-size: 25px;
+            border: none;
+            border-bottom: 3px solid black;
+        }
+        .t32,.t33,.t34,.t35{
+            height: 320px;
+            font-size: 30px;
+        }
+        td{
+            border: none;
+            border-bottom: 2px solid black;
+        }
+        .lastbox{
+            border: none;
+        }
+        .image{
+            border: none;
+            height: 150px;
+            width: 150px;
+            margin-top: 0;
+            float: right;
+            position: relative;
+            justify-content: space-around;
+            border: 2px solid yellow;
+            border-radius: 10px;
+            box-shadow: 5px 5px 5px;
+        }
+        .table2{
+            left: 1%;
+            position: absolute;
+            border: 1px solid black;
+            border-collapse: collapse;
+            top: 500px;
+        }
+        .table2,.t21{
+            width: 58%;
+            height: 900px;
+        }
+        .t37{
+            text-align: center;
+            height: 60px;
+            font-size: 25px;
+            border: none;
+            border-bottom: 3px solid black;
+            border-top: 3px solid black;
+            background: #6ce813;}
+        .hype{
+            font-style: normal;
+        }
+        .goldsky{
+            padding: 15px;
+            background-color: white;
+            float: right;
+            top: 210vh;
+            
+            right: 1%;
+            position: absolute;
+            width: 28vw;
+            height: 70vh;
+        }
+        footer {
+            margin-top: 5vh;
+  background-color: #f9f9f9;
+  color: #666;
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+.containe {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-md-6 {
+  width: 50%;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer-links li {
+  margin-right: 20px;
+}
+
+.footer-links li:last-child {
+  margin-right: 0;
+}
+
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #333;
+}
+        
+    </style>
+</head>
+<body>
+<header>
+    <img class="logo" src="logo.png">
+    <h1>ACE WEATHER</h1>
+    <ul>
+        <li class="contactus"><a href="https://api.whatsapp.com/send/?phone=918595538357&text&type=phone_number&app_absent=0" target="_blank">Contact Us</a></li>
+        
+        
+    </ul>
+</header>
+
+<br>
+<div>
+    <div class="box">
+        <section class="container">
+            <form>
+                <img src="searchlogo.png">
+                <input type="search" placeholder="Search city ..." id="search-city" onkeyup="search()">
+            </form>
+        </section>
+        <div id="city-list">
+            <div class="card"><p class="temp">17°</p><h2> Delhi, India </h2> <img src="rain.png" class="weatherlogo"></div>
+            <div class="card"><p class="temp">27°</p><h2> Mumbai, India </h2> <img src="sun.png" class="weatherlogo"></div>
+            <div class="card"><p class="temp">23°</p><h2> bangalore, India </h2> <img src="rain.png" class="weatherlogo"></div>
+            <div class="card"><p class="temp">25°</p><h2> goa, India </h2> <img src="sun.png" class="weatherlogo"></div>
+            <div class="card"><p class="temp">25°</p><h2> Kolkata, India </h2> <img src="rain.png" class="weatherlogo"></div>
+            <div class="card"><p class="temp">25°</p><h2> Chennei, India </h2> <img src="rain.png" class="weatherlogo"></div>
+            <div class="card"><p class="temp">10°</p><h2> Washington DC, America</h2> <img src="sun.png" class="weatherlogo"></div>
+            <div class="card"><p class="temp">3°</p><h2> Tokyo, Japan </h2> <img src="cold.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">8°</p><h2> Rome, Italy </h2> <img src="rain.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">7°</p><h2> London, England </h2> <img src="cold.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">17°</p><h2> Patna, India </h2> <img src="sun.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">18°</p><h2> Lucknow, India </h2> <img src="sun.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">25°</p><h2> Gandhi Nagar, India </h2> <img src="sun.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">12°</p><h2> Jammu, India </h2> <img src="cold.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">12°</p><h2> Shimla, India </h2> <img src="rain.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">30°</p><h2> Ahmedabad, India </h2> <img src="sun.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">22°</p><h2> Surat, India </h2> <img src="sun.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">27°</p><h2> Pune, India </h2> <img src="sun.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">15°</p><h2> Agra, India </h2> <img src="rain.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">25°</p><h2> Alighar, India </h2> <img src="sun.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+            <div class="card"><p class="temp">30°</p><h2> Allahabad, India </h2> <img src="sun.png" class="weatherlogo"><a href="#" class="moredetails">More Details</a></div>
+        </div>
+    </div>
+    <table class="table3">
+        <th class="t31">TOP STORIES</th>
+        <tr class="t32">
+            <td><img src="snow.jpeg" class="image">Texas and Oklahoma Winter Storms: In February 2023, a winter storm hit Texas and Oklahoma, causing widespread power outages, broken water pipes, and food and fuel shortages. The storm caused at least 30 deaths and millions of dollars in damage.</td>
+        </tr>
+        <tr class="t33">
+            <td><img src="flood1.jpeg" class="image">2022 Hurricane Season: The 2022 hurricane season was one of the most active and destructive on record, with multiple storms causing widespread damage across the Caribbean and the United States. Hurricane Maria, which hit Puerto Rico, was one of the most devastating storms, causing widespread power outages and flooding.</td>
+        </tr>
+        <tr class="t34">
+            <td><img src="fire.jpeg" class="image">Wildfires in California: In 2021, California experienced its largest and most destructive wildfire season in history, with over 10,000 fires burning more than 4 million acres. The fires caused widespread evacuations and destroyed thousands of homes and other structures.</td>
+        </tr>
+        <tr class="t35">
+            <td class="lastbox"><img src="flood.jpeg" class="image">Flooding in South Asia: In August 2017, monsoon floods affected millions of people in South Asia, including India, Nepal, and Bangladesh. The floods caused widespread destruction, killing over 1,200 people and leaving millions homeless.</td>
+        </tr>
+    </table>
+
+    <table CLASS="goldsky">
+        <th class="t37">ADS</th>
+        <TR><TD><PRE>                                                       </PRE></TD></TR>
+        <th><marquee behavior="alternate" direction="right">GOLD SKY BAGS</marquee></th>
+        
+        <tr class="t36">
+            <td class="lastbox1"><img src="3.jpg" class="image"><b>   GOLD SKY </b> This quality casual day pack comes without any bells and whistles. The clean silhouette is fashionable and modern while still having a heritage feel. There’s nothing complicated on this bag, just a 2 spacious main chamber for books and binders plus a laptop compartment . Back small zipper pocket for tiny things . The product is made from polyester on the inside and outside It features : Lite in weight backpack with spacious compartments, soft shell, zipper closure, shoulder strap and is targeted towards both the genders.This large 25-30 litres backpack from the house of GOLD SKY provides separate spaces for a laptop and related accessories. With two spacious compartments, you can easily pack all your travel essentials in this one bag. You also have the option of external bottle holders for quick and easy access. It is lightweight and comfortable to carry. This trendy polyester backpack is dust-proof and water-resistant in nature which ensures that your belongings are safe even on a rainy day. <a href="https://www.flipkart.com/gold-sky-spacy-unisex-backpack-rain-cover-reflective-strip-35-l/p/itm002eba87edce0?pid=BKPGGMX3CKJ774ZN&lid=LSTBKPGGMX3CKJ774ZNJ9C4ZU&marketplace=FLIPKART&q=gold+sky+bag&store=reh%2F4d7%2Fak9&srno=s_1_4&otracker=search&otracker1=search&fm=Search&iid=5fedbd81-784c-4540-9db5-86c1361ec2c7.BKPGGMX3CKJ774ZN.SEARCH&ppt=sp&ppn=sp&ssid=lzntnwx3i80000001676394996909&qH=591594f3a622aa25" target="_blank">  <PRE>    BUY NOW</PRE> </a>  </td>
+        </tr>
+        
+        <td class="lastbox2"><img src="gold.JPG" class="image"> <p>  GOLD SKY</p> This backpack comes with 3 spacious compartment. Maximized comfort with padded, breathable back system. Its adjustable shoulder straps with padded air mesh and back padding ensure long lasting comfort while carrying this backpack. It's Durable high - quality fabric and seam strength ensure that this backpack last long, even if you use it all day, everyday. <PRE>                                         </PRE>                     <a href="https://www.flipkart.com/gold-sky-casual-35l-college-office-travel-backpack-15-6-laptop-compartment-unisex-35-l/p/itm1bc13b13d47dd?pid=BKPGEESGHMRWYPGX&lid=LSTBKPGEESGHMRWYPGXDMQGQY&marketplace=FLIPKART&q=gold+sky&store=search.flipkart.com&srno=s_1_7&otracker=search&otracker1=search&fm=Search&iid=f54d4c2c-9ed0-4be3-8385-c1afe4003f43.BKPGEESGHMRWYPGX.SEARCH&ppt=sp&ppn=sp&qH=5841bc9a7241e88c" target="blank" class="hype">     BUY NOW</a>  </td>
+        </tr>
+    </table>
+</div>
+<footer>
+    <div class="containe">
+      <div class="row">
+        <div class="col-md-6">
+          <p>&copy; 2023 My Weather Website</p>
+        </div>
+        <div class="col-md-6">
+          <ul class="footer-links">
+            <li><a href="https://www.instagram.com/midshiponline/" target="_blank">INSTAGRAM</a></li>
+            <li><a href="https://www.linkedin.com/feed/" target="_blank">LINKEDIN</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+<script src="search.js">
+
+</script>
+
+</html>
